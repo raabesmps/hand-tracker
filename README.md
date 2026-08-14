@@ -9,7 +9,7 @@ Rastreamento de mão pela webcam, direto no navegador, usando o MediaPipe Hands 
 
 ## Demo
 
-_(a subir — link do Netlify entra aqui após o primeiro deploy)_
+[hand-tracker.aquifunciona.dev.br](https://hand-tracker.aquifunciona.dev.br/)
 
 ## Funcionalidades
 
