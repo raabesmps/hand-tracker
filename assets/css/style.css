@@ -1,0 +1,202 @@
+:root {
+  --bg: #0b0d12;
+  --panel: #12151d;
+  --accent: #6ee7f5;
+  --accent2: #f56ee7;
+  --text: #e8ecf1;
+  --muted: #8a93a3;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 0%, #171b25, var(--bg) 60%);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 48px;
+}
+h1 {
+  font-size: 1.4rem;
+  margin: 0 0 4px;
+  letter-spacing: 0.02em;
+}
+p.subtitle {
+  color: var(--muted);
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+  text-align: center;
+  max-width: 520px;
+}
+.stage {
+  position: relative;
+  width: min(90vw, 720px);
+  aspect-ratio: 4 / 3;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #232838, 0 20px 60px -20px rgba(110, 231, 245, 0.25);
+}
+video { display: none; }
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hud {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.badge {
+  background: rgba(18, 21, 29, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid #2a3040;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  transition: color 0.15s, border-color 0.15s;
+}
+.badge.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.mode-switch {
+  display: flex;
+  border: 1px solid #2a3040;
+  border-radius: 10px;
+  overflow: hidden;
+}
+button {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid #2a3040;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: border-color 0.15s, transform 0.1s, background 0.15s, color 0.15s;
+}
+button:hover { border-color: var(--accent); }
+button:active { transform: scale(0.97); }
+.mode-btn {
+  border: none;
+  border-radius: 0;
+}
+.mode-btn.active {
+  background: var(--accent);
+  color: #0b0d12;
+  font-weight: 600;
+}
+.status {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+  min-height: 1.2em;
+}
+.status.error { color: #ff6b6b; }
+.hint {
+  margin: 10px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+}
+.slider-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid #2a3040;
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+.slider-label span {
+  color: var(--accent);
+  min-width: 34px;
+}
+.slider-label input[type="range"] {
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* Gesture-controlled page cursor (mouse mode). A real page can't move the
+   OS pointer (browsers block that for security), so instead we hide the
+   real cursor and float a look-alike arrow that tracks the hand. */
+.gesture-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  /* Tip of the arrow (SVG point 5,3) lands on the tracked point — same
+     hotspot convention as a real OS pointer, whose click point is the tip. */
+  margin-left: -5px;
+  margin-top: -3px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  display: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.75));
+  transition: opacity 0.15s;
+}
+.gesture-cursor svg path {
+  fill: #fafbfe;
+  stroke: #10131a;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  transition: fill 0.12s;
+}
+.gesture-cursor.over-target svg path {
+  fill: var(--accent2);
+}
+.gesture-cursor.clicked svg {
+  animation: gesture-click-pulse 0.28s ease-out;
+  transform-origin: 5px 3px;
+}
+@keyframes gesture-click-pulse {
+  0% { transform: scale(0.7); }
+  55% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Only the real cursor is hidden — the fake one has pointer-events: none,
+   so it never blocks a genuine mouse click underneath it. */
+body.gesture-mouse-active,
+body.gesture-mouse-active * {
+  cursor: none !important;
+}
+
+.site-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid #232838;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+.site-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.site-footer a:hover {
+  text-decoration: underline;
+}

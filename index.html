@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hand Tracker — Protótipo</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div data-include="assets/includes/header.html"></div>
+
+  <div class="stage">
+    <video id="video" playsinline></video>
+    <canvas id="canvas"></canvas>
+    <div class="hud">
+      <div class="badge" id="badge-hand">mão: —</div>
+      <div class="badge" id="badge-pinch">pinça: —</div>
+      <div class="badge" id="badge-fps">fps: —</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="mode-switch">
+      <button id="btn-mode-draw" class="mode-btn active">✏️ Desenho</button>
+      <button id="btn-mode-game" class="mode-btn">🍉 Fatiar</button>
+      <button id="btn-mode-mouse" class="mode-btn">🖱️ Mouse</button>
+    </div>
+    <button id="btn-clear">Limpar traço</button>
+    <label class="slider-label" for="pinch-sensitivity">
+      Sensibilidade do corte/clique especial (pinça): <span id="pinch-value">40%</span>
+      <input type="range" id="pinch-sensitivity" min="15" max="70" value="40" step="1" />
+    </label>
+  </div>
+
+  <p class="hint" id="hint"></p>
+
+  <div class="status" id="status">Pedindo acesso à câmera…</div>
+
+  <div data-include="assets/includes/footer.html"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script type="module" src="assets/js/includes.js"></script>
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
